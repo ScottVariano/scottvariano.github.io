@@ -122,7 +122,7 @@ $( document ).ready(function() {
 
 		$("input[name='foregroundImage']").on('input propertychange paste', function() {
 		   imgSrc = $(this).val();
-		   $(".desktopPreview").contents().find(".banner-image.desktop-only").attr("src", imgSrc);
+		   $(".desktopPreview").contents().find(".banner-image.desktop-only img").attr("src", imgSrc);
 		});
 
 
