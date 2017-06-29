@@ -65,13 +65,46 @@
     }
     .form-control,
     .input-group {
-        max-width: 200px;
+        max-width: 300px;
     }
 </style>
 
 
 <style>
 
+		.wrapper {
+		  width: 100%;
+		  display: inline-block;
+		  position: relative;
+		}
+		.wrapper:after {
+		  padding-top: 56.25%;
+		  display: block;
+		  content: '';
+		}
+		.mobile-wrapper {
+			max-width: 400px;
+		}
+		.mobile-wrapper:after {
+			padding-top: 144.44%;
+		}
+		.main {
+		  position: absolute;
+		  top: 0;
+		  bottom: 0;
+		  right: 0;
+		  left: 0;
+		  background-color: #eaeaea;
+		  color: white;
+	  	background-image: url(bars.svg);
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: 33.75px 35px;
+		border: 3px solid #62a8ea;
+		}
+		.desktopPreviewCol {
+			text-align: center;
+		}
 		.desktopPreview {
 			width: 100%;
 			border: none;
@@ -94,16 +127,27 @@ $( document ).ready(function() {
 
 		function editorPreview() {
 
-			var desktopWidth = 1200;
+			$(".desktopPreview").each(function(){
+
+			var desktopWidth = $(this).data("preview-breakpoint");
+			var sibWrapper = $(this).siblings(".wrapper");
+			var aspectRatio = sibWrapper.height() / sibWrapper.width();
+			// alert(aspectRatio);
+			// alert(desktopWidth);
+			// alert(aspectRatioSplit);
+
 			var availWidth = $(".desktopPreviewCol").width();
 			var scale = availWidth / desktopWidth;
 			var multiply = 100 / scale;
-			// var heightFix = scale * ((multiply / 100) * 10000 );
-			var cssCorrection = "scale(" + scale + "," + scale + ")";
-
-			console.log(multiply);
+			if(scale < 1) {
+				var cssCorrection = "scale(" + scale + "," + scale + ")";
+			} else {
+				var cssCorrection = "scale(1, 1)";
+			}
+			$(".wrapper").hide();
+			$(this).show();
 			
-			$(".desktopPreview")
+			$(this)
 				.css("border", (multiply * .03) + "px solid #62a8ea")
 				.css("width", multiply + "%")
 				.css("-moz-transform", cssCorrection)
@@ -112,10 +156,12 @@ $( document ).ready(function() {
 				.css("-ms-transform", cssCorrection)
 				.css("transform",  cssCorrection);
 
+			var heighter = $(this).width() * aspectRatio;
+			$(this).css("height", heighter + "px");
+			$(this).parents(".desktopPreviewCol").css("max-height", (heighter * scale) + "px");
 
-			var heighter = $(".desktopPreview").width() * .5625;
-			$(".desktopPreview").css("height", heighter + "px");
-			$(".desktopPreviewCol").css("max-height", (heighter * scale) + "px");
+			});
+
 		}
 
 		$(window).on("load resize",function(){
@@ -130,10 +176,9 @@ $( document ).ready(function() {
 		   $(".desktopPreview").contents().find(".banner-image.desktop-only img").attr("src", imgSrc);
 		});
 
-
-
 });
 </script>
+
 
 <form id="homepageImageEditor" data-abide="" name="homepageImageEditor" method="post" action="#">
 	<div class="panel panel-primary panel-line" data-collapsed="0">
@@ -190,7 +235,9 @@ $( document ).ready(function() {
 
 			<div class="col-md-8 desktopPreviewCol">
 
-			<iframe class="desktopPreview" src="home.html"></iframe>
+
+			<div class="wrapper"><div class="main"></div></div>
+			<iframe class="desktopPreview" data-preview-breakpoint="1200" data-aspect-ratio="16:9" src="home.html" style="display:none;"></iframe>
 
 			</div>
 
@@ -203,14 +250,19 @@ $( document ).ready(function() {
 			<div class="panel-title">Mobile</div>
 		</div>
 		<div class="panel-body" style="display: block;">
+
+		<div class="row">
+
+		<div class="col-md-4">
+
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-12">
 					<div class="formSection">
 						<div>Mobile Image:</div>
 						<input class="form-control" name="mobileImage" type="text" value="" placeholder="Mobile Image">
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-12">
 					<div class="formSection">
 						<div>Mobile Image Format:</div>
 						<select class="form-control" name="mobileImageFormat">
@@ -219,13 +271,25 @@ $( document ).ready(function() {
 						</select>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-12">
 					<div class="formSection">
 						<div>Mobile Image Link:</div>
 						<input class="form-control" name="mobileImageLink" type="text" value="" placeholder="Mobile Image Link">
 					</div>
 				</div>
 			</div>
+
+			</div>
+
+			<div class="col-md-8 desktopPreviewCol">
+
+				<div class="wrapper mobile-wrapper"><div class="main"></div></div>
+				<iframe data-preview-breakpoint="400" data-aspect-ratio="9:16" class="desktopPreview" src="home.html" style="display:none;"></iframe>
+
+			</div>
+
+			</div>
+
 		</div>
 	</div>
 	<div class="panel panel-primary panel-line" data-collapsed="0">
