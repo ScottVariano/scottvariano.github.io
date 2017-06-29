@@ -119,10 +119,6 @@
 		  -ms-transform-origin: top left;
 		  transform-origin: top left;
 		}
-		.desktopPreview html,
-		.desktopPreview body {
-			overflow: hidden;
-		}
 
 </style>
 
@@ -176,7 +172,7 @@ $( document ).ready(function() {
 		   $(".desktopPreview").contents().find(".banner-image.desktop-only img").attr("src", imgSrc);
 		});
 
-		// $(".desktopPreview").contents().find("html, body").css("overflow", "hidden");
+		$(".desktopPreview").contents().find("html, body").css("overflow", "hidden");
 
 });
 </script>
