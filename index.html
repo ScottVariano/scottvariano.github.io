@@ -60,7 +60,7 @@
 <link rel="stylesheet" href="https://os.bigname.com/html/themes/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
 <style>
     .formSection {
-        width: 300px;
+        max-width: 300px;
         margin: 10px auto;
     }
     .form-control,
@@ -74,6 +74,7 @@
 
 		.wrapper {
 		  width: 100%;
+		  max-width: 1200px;
 		  display: inline-block;
 		  position: relative;
 		}
@@ -100,7 +101,11 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 		background-size: 33.75px 35px;
-		border: 3px solid #62a8ea;
+/*		border: 3px solid #62a8ea;*/
+		}
+		.main,
+		.desktopPreview {
+			box-shadow:0 0 20px rgba(0,0,0,.5);
 		}
 		.desktopPreviewCol {
 			text-align: center;
@@ -108,16 +113,11 @@
 		.desktopPreview {
 			width: 100%;
 			border: none;
-/*						-moz-transform: scale(0.5, 0.5); 
-			  -webkit-transform: scale(0.5, 0.5); 
-			  -o-transform: scale(0.5, 0.5);
-			  -ms-transform: scale(0.5, 0.5);
-			  transform: scale(0.5, 0.5); */
-			  -moz-transform-origin: top left;
-			  -webkit-transform-origin: top left;
-			  -o-transform-origin: top left;
-			  -ms-transform-origin: top left;
-			  transform-origin: top left;
+		  -moz-transform-origin: top left;
+		  -webkit-transform-origin: top left;
+		  -o-transform-origin: top left;
+		  -ms-transform-origin: top left;
+		  transform-origin: top left;
 		}
 
 </style>
@@ -129,13 +129,9 @@ $( document ).ready(function() {
 
 			$(".desktopPreview").each(function(){
 
-			var desktopWidth = $(this).data("preview-breakpoint");
 			var sibWrapper = $(this).siblings(".wrapper");
+			var desktopWidth = sibWrapper.css("max-width").replace("px", "");
 			var aspectRatio = sibWrapper.height() / sibWrapper.width();
-			// alert(aspectRatio);
-			// alert(desktopWidth);
-			// alert(aspectRatioSplit);
-
 			var availWidth = $(".desktopPreviewCol").width();
 			var scale = availWidth / desktopWidth;
 			var multiply = 100 / scale;
@@ -148,7 +144,7 @@ $( document ).ready(function() {
 			$(this).show();
 			
 			$(this)
-				.css("border", (multiply * .03) + "px solid #62a8ea")
+				// .css("border", (multiply * .03) + "px solid #62a8ea")
 				.css("width", multiply + "%")
 				.css("-moz-transform", cssCorrection)
 				.css("-webkit-transform", cssCorrection)
@@ -175,6 +171,8 @@ $( document ).ready(function() {
 		   imgSrc = $(this).val();
 		   $(".desktopPreview").contents().find(".banner-image.desktop-only img").attr("src", imgSrc);
 		});
+
+		$(".desktopPreview").contents().find("body").css("overflow", "hidden");
 
 });
 </script>
@@ -208,8 +206,6 @@ $( document ).ready(function() {
 						<input class="form-control jqs-validateExists" name="backgroundImage" type="text" value="" placeholder="Background Image (Required)">
 					</div>
 				</div>
-
-
 
 				<div class="col-md-12">
 					<div class="formSection">
