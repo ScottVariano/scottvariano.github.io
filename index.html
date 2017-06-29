@@ -166,10 +166,6 @@ $( document ).ready(function() {
 		});
 		window.setInterval(function(){
 			editorPreview();
-
-			$(".desktopPreview").contents().find("html").css("overflow", "hidden");
-			$(".desktopPreview").contents().find("body").css("overflow", "hidden !important");
-
 		}, 1000);
 
 		$("input[name='foregroundImage']").on('input propertychange paste', function() {
@@ -236,7 +232,7 @@ $( document ).ready(function() {
 
 
 			<div class="wrapper"><div class="main"></div></div>
-			<iframe scrolling="no" class="desktopPreview" scrolling="no" data-preview-breakpoint="1200" data-aspect-ratio="16:9" src="home.html" style="display:none;"></iframe>
+			<iframe scrolling="no" class="desktopPreview" data-preview-breakpoint="1200" data-aspect-ratio="16:9" src="home.html" style="display:none;"></iframe>
 
 			</div>
 
