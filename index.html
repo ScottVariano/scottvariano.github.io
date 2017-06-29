@@ -113,6 +113,7 @@
 		.desktopPreview {
 			width: 100%;
 			border: none;
+			overflow: hidden;
 		  -moz-transform-origin: top left;
 		  -webkit-transform-origin: top left;
 		  -o-transform-origin: top left;
@@ -165,15 +166,16 @@ $( document ).ready(function() {
 		});
 		window.setInterval(function(){
 			editorPreview();
+
+			$(".desktopPreview").contents().find("html").css("overflow", "hidden");
+			$(".desktopPreview").contents().find("body").css("overflow", "hidden !important");
+
 		}, 1000);
 
 		$("input[name='foregroundImage']").on('input propertychange paste', function() {
 		   imgSrc = $(this).val();
 		   $(".desktopPreview").contents().find(".banner-image.desktop-only img").attr("src", imgSrc);
 		});
-
-		$(".desktopPreview").contents().find("html").css("overflow", "hidden");
-		$(".desktopPreview").contents().find("body").css("overflow", "hidden !important");
 
 });
 </script>
@@ -234,7 +236,7 @@ $( document ).ready(function() {
 
 
 			<div class="wrapper"><div class="main"></div></div>
-			<iframe class="desktopPreview" data-preview-breakpoint="1200" data-aspect-ratio="16:9" src="home.html" style="display:none;"></iframe>
+			<iframe scrolling="no" class="desktopPreview" scrolling="no" data-preview-breakpoint="1200" data-aspect-ratio="16:9" src="home.html" style="display:none;"></iframe>
 
 			</div>
 
@@ -281,7 +283,7 @@ $( document ).ready(function() {
 			<div class="col-md-8 desktopPreviewCol">
 
 				<div class="wrapper mobile-wrapper"><div class="main"></div></div>
-				<iframe data-preview-breakpoint="400" data-aspect-ratio="9:16" class="desktopPreview" src="home.html" style="display:none;"></iframe>
+				<iframe scrolling="no" data-preview-breakpoint="400" data-aspect-ratio="9:16" class="desktopPreview" src="home.html" style="display:none;"></iframe>
 
 			</div>
 
